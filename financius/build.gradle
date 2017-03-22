@@ -46,6 +46,8 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             minifyEnabled true
             shrinkResources true
+            applicationIdSuffix '.custom'
+            versionNameSuffix '-custom-1'
         }
     }
     sourceSets {
