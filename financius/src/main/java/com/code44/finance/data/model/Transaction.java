@@ -131,10 +131,6 @@ public class Transaction extends Model {
             tags = Collections.emptyList();
         }
 
-        if (amount < 0) {
-            amount = 0;
-        }
-
         if (Double.compare(exchangeRate, 0) < 0) {
             exchangeRate = 1.0;
         }
@@ -170,7 +166,6 @@ public class Transaction extends Model {
         super.validateForContentValues();
         Preconditions.notNull(transactionState, "Transaction state cannot be null.");
         Preconditions.notNull(transactionType, "Transaction type cannot be null.");
-        Preconditions.moreOrEquals(amount, 0, "Amount must be >= 0.");
         Preconditions.notNull(note, "Note cannot be null.");
 
         switch (transactionType) {

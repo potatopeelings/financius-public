@@ -169,7 +169,7 @@ public class TransactionEditData implements Parcelable {
     }
 
     public long getAmount() {
-        if (amount != null && amount > 0) {
+        if (amount != null) {
             return amount;
         }
 
@@ -182,7 +182,7 @@ public class TransactionEditData implements Parcelable {
 
     public void setAmount(Long amount) {
         this.amount = amount;
-        isAmountSet = amount != null && amount > 0;
+        isAmountSet = amount != null;
     }
 
     public long getDate() {
@@ -443,7 +443,7 @@ public class TransactionEditData implements Parcelable {
     }
 
     public boolean validateAmount(AmountPresenter controller) {
-        if (getAmount() > 0) {
+        if (getAmount() != 0) {
             return true;
         }
 
