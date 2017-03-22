@@ -42,4 +42,4 @@ of this license document, but changing it is not allowed.
 [5]: https://github.com/mvarnagiris/financius-public/issues?state=open
 [6]: https://github.com/mvarnagiris/financius-public/issues?state=closed
 [7]: https://crowdin.com/project/financius
-[8]: ./issues
+[8]: ../../issues?q=
