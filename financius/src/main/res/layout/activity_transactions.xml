@@ -1,24 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <include layout="@layout/toolbar" />
-
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            style="@style/AdapterView" />
+        <include layout="@layout/toolbar" />
 
-        <com.code44.finance.ui.common.views.EmptyContainerView
-            android:id="@+id/emptyContainerView"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent">
 
-    </FrameLayout>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                style="@style/AdapterView" />
 
-</LinearLayout>
+            <com.code44.finance.ui.common.views.EmptyContainerView
+                android:id="@+id/emptyContainerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </FrameLayout>
+    </LinearLayout>
+
+    <com.code44.finance.views.FabImageButton
+        android:id="@+id/newTransaction"
+        android:layout_width="@dimen/btn_fab"
+        android:layout_height="@dimen/btn_fab"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="@dimen/keyline"
+        android:elevation="@dimen/elevation_fab"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_action_new"
+        tools:ignore="RtlHardcoded,UnusedAttribute"
+        tools:tint="?android:textColorPrimary" />
+</RelativeLayout>
