@@ -5,7 +5,9 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.support.v7.widget.SwitchCompat;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.code44.finance.R;
@@ -19,14 +21,17 @@ import com.code44.finance.ui.accounts.edit.AccountEditActivity;
 import com.code44.finance.ui.common.activities.BaseActivity;
 import com.code44.finance.ui.common.adapters.ModelsAdapter;
 import com.code44.finance.ui.common.presenters.ModelsActivityPresenter;
+import com.code44.finance.utils.preferences.GeneralPrefs;
 
-class AccountsActivityPresenter extends ModelsActivityPresenter<Account> {
+class AccountsActivityPresenter extends ModelsActivityPresenter<Account> implements CompoundButton.OnCheckedChangeListener {
+    private final GeneralPrefs generalPrefs;
     private final CurrenciesManager currenciesManager;
     private final AmountFormatter amountFormatter;
 
     private TextView balanceTextView;
 
-    public AccountsActivityPresenter(CurrenciesManager currenciesManager, AmountFormatter amountFormatter) {
+    public AccountsActivityPresenter(GeneralPrefs generalPrefs, CurrenciesManager currenciesManager, AmountFormatter amountFormatter) {
+        this.generalPrefs = generalPrefs;
         this.currenciesManager = currenciesManager;
         this.amountFormatter = amountFormatter;
     }
@@ -36,10 +41,17 @@ class AccountsActivityPresenter extends ModelsActivityPresenter<Account> {
 
         final View balanceContainerView = findView(activity, R.id.balanceContainerView);
         balanceTextView = findView(activity, R.id.balanceTextView);
+        final SwitchCompat hideZeroBalanceAccountsSwitch = findView(activity, R.id.hideZeroBalanceAccountsSwitch);
 
         if (getMode() != Mode.View) {
             balanceContainerView.setVisibility(View.GONE);
         }
+        hideZeroBalanceAccountsSwitch.setChecked(generalPrefs.getHideZeroBalanceAccounts());
+        hideZeroBalanceAccountsSwitch.setOnCheckedChangeListener(this);
+    }
+
+    @Override public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        generalPrefs.setHideZeroBalanceAccounts(isChecked);
     }
 
     @Override public void onLoadFinished(Loader<Cursor> loader, Cursor data) {

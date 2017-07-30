@@ -157,6 +157,14 @@ public class Query {
         return this;
     }
 
+    public Query selectionConditional(boolean condition, String clause, String... args) {
+        if (condition) {
+            selection(clause);
+            args(args);
+        }
+        return this;
+    }
+
     public Query selectionInClause(String clause, int count) {
         return selection(makeInClause(clause, count));
     }

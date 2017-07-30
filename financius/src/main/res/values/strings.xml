@@ -123,6 +123,7 @@
     <string name="f_current_main_currency_is_x">Current main currency is %s</string>
     <string name="f_x_y_will_be_deleted">%1$d %2$s will be deleted</string>
 
+    <string name="l_hide_zero_balance_accounts">Hide 0 balance accounts in overview</string>
     <string name="l_refresh_rates_daily">Refresh rates every day</string>
     <string name="l_currency_exists">This currency already exists</string>
     <string name="l_please_enter_currency_code">Please enter currency code</string>

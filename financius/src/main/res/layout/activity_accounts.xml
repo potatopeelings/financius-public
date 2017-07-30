@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <include layout="@layout/toolbar" />
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
 
     <LinearLayout
         android:id="@+id/balanceContainerView"
@@ -16,7 +17,8 @@
         android:gravity="center_vertical"
         android:minHeight="@dimen/action_bar_size_2x"
         android:padding="@dimen/keyline"
-        tools:ignore="UnusedAttribute">
+        tools:ignore="UnusedAttribute"
+        android:layout_below="@+id/toolbar">
 
         <me.grantland.widget.AutofitTextView
             android:id="@+id/balanceTextView"
@@ -33,7 +35,9 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/balanceContainerView"
+        android:layout_above="@+id/settingsContainerView">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
@@ -46,4 +50,35 @@
 
     </FrameLayout>
 
-</LinearLayout>
+    <LinearLayout
+        android:id="@+id/settingsContainerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="?colorPrimary"
+        android:elevation="@dimen/elevation_sub_header"
+        android:gravity="center_vertical"
+        android:minHeight="?android:actionBarSize"
+        android:paddingBottom="@dimen/space_normal"
+        android:paddingLeft="@dimen/keyline"
+        android:paddingRight="@dimen/keyline"
+        android:paddingTop="@dimen/space_normal"
+        tools:ignore="RtlHardcoded,UnusedAttribute">
+
+        <TextView
+            style="@style/Text.Subhead"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/l_hide_zero_balance_accounts"
+            android:textColor="?android:textColorPrimaryInverse" />
+
+        <android.support.v7.widget.SwitchCompat
+            android:id="@+id/hideZeroBalanceAccountsSwitch"
+            style="@style/Widget.AppCompat.CompoundButton.Switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+</RelativeLayout>

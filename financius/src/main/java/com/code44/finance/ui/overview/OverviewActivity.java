@@ -25,6 +25,7 @@ import com.code44.finance.ui.reports.trends.TrendsChartView;
 import com.code44.finance.ui.transactions.edit.TransactionEditActivity;
 import com.code44.finance.utils.analytics.Analytics;
 import com.code44.finance.utils.interval.CurrentInterval;
+import com.code44.finance.utils.preferences.GeneralPrefs;
 import com.code44.finance.views.AccountsView;
 import com.code44.finance.views.FabImageButton;
 import com.squareup.otto.Subscribe;
@@ -41,6 +42,7 @@ public class OverviewActivity extends BaseDrawerActivity implements LoaderManage
     @Inject CurrentInterval currentInterval;
     @Inject CurrenciesManager currenciesManager;
     @Inject AmountFormatter amountFormatter;
+    @Inject GeneralPrefs generalPrefs;
 
     private OverviewGraphView overviewGraphView;
     private AccountsView accountsView;
@@ -78,16 +80,20 @@ public class OverviewActivity extends BaseDrawerActivity implements LoaderManage
         // Loader
         getSupportLoaderManager().initLoader(LOADER_TRANSACTIONS, null, this);
         getSupportLoaderManager().initLoader(LOADER_ACCOUNTS, null, this);
+        getEventBus().register(this);
+    }
+
+    @Override protected void onDestroy() {
+        super.onDestroy();
+        getEventBus().unregister(this);
     }
 
     @Override public void onResume() {
         super.onResume();
-        getEventBus().register(this);
     }
 
     @Override public void onPause() {
         super.onPause();
-        getEventBus().unregister(this);
     }
 
     @Override protected NavigationScreen getNavigationScreen() {
@@ -111,6 +117,7 @@ public class OverviewActivity extends BaseDrawerActivity implements LoaderManage
                 return Tables.Accounts
                         .getQuery()
                         .selection(" and " + Tables.Accounts.INCLUDE_IN_TOTALS + "=?", "1")
+                        .selectionConditional(generalPrefs.getHideZeroBalanceAccounts(), " and " + Tables.Accounts.BALANCE + "!=?", "0")
                         .asCursorLoader(this, AccountsProvider.uriAccounts());
         }
         return null;
@@ -150,6 +157,10 @@ public class OverviewActivity extends BaseDrawerActivity implements LoaderManage
     @Subscribe public void onCurrentIntervalChanged(CurrentInterval currentInterval) {
         getSupportLoaderManager().restartLoader(LOADER_TRANSACTIONS, null, this);
         getSupportActionBar().setTitle(currentInterval.getTitle());
+    }
+
+    @Subscribe public void onGeneralPrefsChanged(GeneralPrefs generalPrefs) {
+        getSupportLoaderManager().restartLoader(LOADER_ACCOUNTS, null, this);
     }
 
     private void onTransactionsLoaded(Cursor cursor) {

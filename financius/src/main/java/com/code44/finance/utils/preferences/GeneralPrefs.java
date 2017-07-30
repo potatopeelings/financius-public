@@ -18,6 +18,7 @@ public class GeneralPrefs extends Prefs {
     private int intervalLength;
     private boolean analyticsOptOut;
     private String mainCurrencyCode;
+    private boolean hideZeroBalanceAccounts;
 
     public GeneralPrefs(Context context, EventBus eventBus) {
         super(context);
@@ -42,10 +43,11 @@ public class GeneralPrefs extends Prefs {
         intervalLength = getInteger("intervalLength", 1);
         analyticsOptOut = getBoolean("analyticsOptOut", false);
         mainCurrencyCode = getString("mainCurrencyCode", null);
+        hideZeroBalanceAccounts = getBoolean("hideZeroBalanceAccounts", false);
     }
 
     public void clear() {
-        clear("lastVersionCode", "isAutoUpdateCurrencies", "autoUpdateCurrenciesTimestamp", "lastFileExportPath", "intervalType", "intervalLength", "analyticsOptOut", "mainCurrencyCode");
+        clear("lastVersionCode", "isAutoUpdateCurrencies", "autoUpdateCurrenciesTimestamp", "lastFileExportPath", "intervalType", "intervalLength", "analyticsOptOut", "mainCurrencyCode", "hideZeroBalanceAccounts");
         refresh();
         notifyChanged();
     }
@@ -121,5 +123,15 @@ public class GeneralPrefs extends Prefs {
     public void setMainCurrencyCode(String mainCurrencyCode) {
         this.mainCurrencyCode = mainCurrencyCode;
         setString("mainCurrencyCode", mainCurrencyCode);
+    }
+
+    public boolean getHideZeroBalanceAccounts() {
+        return hideZeroBalanceAccounts;
+    }
+
+    public void setHideZeroBalanceAccounts(boolean hideZeroBalanceAccounts) {
+        this.hideZeroBalanceAccounts = hideZeroBalanceAccounts;
+        setBoolean("hideZeroBalanceAccounts", hideZeroBalanceAccounts);
+        notifyChanged();
     }
 }

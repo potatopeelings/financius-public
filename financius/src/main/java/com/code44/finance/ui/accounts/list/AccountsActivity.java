@@ -13,10 +13,12 @@ import com.code44.finance.ui.common.navigation.NavigationScreen;
 import com.code44.finance.ui.common.presenters.ActivityPresenter;
 import com.code44.finance.ui.common.presenters.ModelsActivityPresenter;
 import com.code44.finance.utils.analytics.Analytics;
+import com.code44.finance.utils.preferences.GeneralPrefs;
 
 import javax.inject.Inject;
 
 public class AccountsActivity extends BaseDrawerActivity {
+    @Inject GeneralPrefs generalPrefs;
     @Inject CurrenciesManager currenciesManager;
     @Inject AmountFormatter amountFormatter;
 
@@ -47,7 +49,7 @@ public class AccountsActivity extends BaseDrawerActivity {
     }
 
     @Override protected ActivityPresenter onCreateActivityPresenter() {
-        return new AccountsActivityPresenter(currenciesManager, amountFormatter);
+        return new AccountsActivityPresenter(generalPrefs, currenciesManager, amountFormatter);
     }
 
     @Override protected NavigationScreen getNavigationScreen() {
