@@ -32,6 +32,7 @@ public class Analytics {
         TransactionList("Transaction list"),
         Transaction("Transaction"),
         TransactionEdit("Transaction edit"),
+        TransactionFilter("Transaction filter"),
         CategoriesReport("Categories report"),
         Settings("Settings"),
         About("About"),

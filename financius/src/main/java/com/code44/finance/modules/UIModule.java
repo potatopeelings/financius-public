@@ -36,6 +36,7 @@ import com.code44.finance.ui.tags.list.TagsActivity;
 import com.code44.finance.ui.transactions.detail.TransactionActivity;
 import com.code44.finance.ui.transactions.edit.TransactionEditActivity;
 import com.code44.finance.ui.transactions.list.TransactionsActivity;
+import com.code44.finance.ui.transactions.filter.TransactionFilterActivity;
 
 import dagger.Module;
 
@@ -54,6 +55,7 @@ import dagger.Module;
                 TransactionsActivity.class,
                 TransactionActivity.class,
                 TransactionEditActivity.class,
+                TransactionFilterActivity.class,
                 CategoriesActivity.class,
                 CategoryActivity.class,
                 CategoryEditActivity.class,

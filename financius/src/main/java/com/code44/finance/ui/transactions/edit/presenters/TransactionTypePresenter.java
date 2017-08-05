@@ -21,19 +21,27 @@ public class TransactionTypePresenter extends Presenter {
 
     public void setTransactionType(TransactionType transactionType) {
         final int color;
-        switch (transactionType) {
-            case Expense:
-                color = ThemeUtils.getColor(transactionTypeImageView.getContext(), R.attr.textColorNegative);
-                break;
-            case Income:
-                color = ThemeUtils.getColor(transactionTypeImageView.getContext(), R.attr.textColorPositive);
-                break;
-            case Transfer:
-                color = ThemeUtils.getColor(transactionTypeImageView.getContext(), R.attr.textColorNeutral);
-                break;
-            default:
-                throw new IllegalArgumentException("Transaction type " + transactionType + " is not supported.");
+
+        if (transactionType == null) {
+            transactionTypeImageView.setAlpha(0.2f);
+            color = ThemeUtils.getColor(transactionTypeImageView.getContext(), R.attr.textColorNeutral);
+        } else {
+            transactionTypeImageView.setAlpha(1f);
+            switch (transactionType) {
+                case Expense:
+                    color = ThemeUtils.getColor(transactionTypeImageView.getContext(), R.attr.textColorNegative);
+                    break;
+                case Income:
+                    color = ThemeUtils.getColor(transactionTypeImageView.getContext(), R.attr.textColorPositive);
+                    break;
+                case Transfer:
+                    color = ThemeUtils.getColor(transactionTypeImageView.getContext(), R.attr.textColorNeutral);
+                    break;
+                default:
+                    throw new IllegalArgumentException("Transaction type " + transactionType + " is not supported.");
+            }
         }
+
         transactionTypeImageView.setColorFilter(color);
     }
 }

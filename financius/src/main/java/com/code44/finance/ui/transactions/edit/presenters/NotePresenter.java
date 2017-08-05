@@ -98,7 +98,7 @@ public class NotePresenter extends Presenter implements LoaderManager.LoaderCall
 
     @Override public void onFocusChange(View v, boolean hasFocus) {
         if (hasFocus) {
-            callbacks.onNoteFocusFained();
+            callbacks.onNoteFocusGained();
         }
     }
 
@@ -136,6 +136,6 @@ public class NotePresenter extends Presenter implements LoaderManager.LoaderCall
     public static interface Callbacks {
         public void onNoteUpdated(String note);
 
-        public void onNoteFocusFained();
+        public void onNoteFocusGained();
     }
 }

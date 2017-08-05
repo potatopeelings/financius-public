@@ -6,6 +6,7 @@
         <attr name="textColorPositive" format="color" />
         <attr name="textColorNegative" format="color" />
         <attr name="textColorNeutral" format="color" />
+        <attr name="textColorTransparent" format="color" />
         <attr name="colorAccentDark" format="color" />
         <attr name="colorError" format="color" />
         <attr name="backgroundColor" format="color" />

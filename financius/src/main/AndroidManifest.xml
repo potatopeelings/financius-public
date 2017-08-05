@@ -89,6 +89,9 @@
         <activity
             android:name=".ui.transactions.edit.TransactionEditActivity"
             android:label="@string/transactions_one" />
+        <activity
+            android:name=".ui.transactions.filter.TransactionFilterActivity"
+            android:label="@string/filter" />
         <activity android:name=".ui.user.LoginActivity" />
         <activity
             android:name=".ui.settings.data.DataActivity"

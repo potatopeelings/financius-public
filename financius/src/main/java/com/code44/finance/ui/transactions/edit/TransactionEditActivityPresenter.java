@@ -358,7 +358,7 @@ class TransactionEditActivityPresenter extends ModelEditActivityPresenter<Transa
         requestAutoComplete();
     }
 
-    @Override public void onNoteFocusFained() {
+    @Override public void onNoteFocusGained() {
         if (!transactionEditData.isNoteSet()) {
             transactionEditData.setNote(null);
             updateNote(transactionEditData.getNote());

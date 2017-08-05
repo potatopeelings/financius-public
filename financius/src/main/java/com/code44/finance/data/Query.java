@@ -23,6 +23,7 @@ public class Query {
     private final List<String> selectionArgs = new ArrayList<>();
     private final List<String> sortOrder = new ArrayList<>();
     private final List<String> groupBy = new ArrayList<>();
+    private final List<String> havingSelection = new ArrayList<>();
     private int limit = 0;
 
     private Query() {
@@ -40,7 +41,12 @@ public class Query {
         } else {
             selection = query.getSelection() + ") group by (" + groupBy;
         }
-        return selection;
+        String havingSelection = query.getHavingSelection();
+        if (havingSelection == null) {
+            return selection;
+        } else {
+            return selection + ") having (" + havingSelection;
+        }
     }
 
     private static String getSortOrderWithLimit(Query query) {
@@ -66,6 +72,19 @@ public class Query {
 
         final StringBuilder sb = new StringBuilder();
         for (String clause : selection) {
+            sb.append(" ").append(clause);
+        }
+
+        return sb.toString();
+    }
+
+    public String getHavingSelection() {
+        if (havingSelection.size() == 0) {
+            return null;
+        }
+
+        final StringBuilder sb = new StringBuilder();
+        for (String clause : havingSelection) {
             sb.append(" ").append(clause);
         }
 
@@ -154,6 +173,11 @@ public class Query {
     public Query selection(String clause, String... args) {
         selection(clause);
         args(args);
+        return this;
+    }
+
+    public Query havingSelection(String clause) {
+        havingSelection.add(clause);
         return this;
     }
 

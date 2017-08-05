@@ -12,6 +12,8 @@ import com.code44.finance.ui.common.presenters.ActivityPresenter;
 import com.code44.finance.utils.analytics.Analytics;
 
 public class CategoriesActivity extends BaseActivity {
+    private static final String READ_ONLY = "READ_ONLY";
+
     public static void start(Context context) {
         final Intent intent = makeIntentForActivity(context, CategoriesActivity.class);
         CategoriesActivityPresenter.addViewExtras(intent);
@@ -19,7 +21,12 @@ public class CategoriesActivity extends BaseActivity {
     }
 
     public static void startSelect(Activity activity, int requestCode, TransactionType transactionType) {
+        startSelect(activity, requestCode, transactionType, false);
+    }
+
+    public static void startSelect(Activity activity, int requestCode, TransactionType transactionType, boolean isReadOnly) {
         final Intent intent = makeIntentForActivity(activity, CategoriesActivity.class);
+        intent.putExtra(READ_ONLY, isReadOnly);
         CategoriesActivityPresenter.addSelectExtras(intent);
         CategoriesActivityPresenter.addExtras(intent, transactionType);
         startActivityForResult(activity, intent, requestCode);
@@ -31,7 +38,7 @@ public class CategoriesActivity extends BaseActivity {
     }
 
     @Override protected ActivityPresenter onCreateActivityPresenter() {
-        return new CategoriesActivityPresenter();
+        return new CategoriesActivityPresenter(getIntent().getExtras().getBoolean(READ_ONLY));
     }
 
     @Override protected Analytics.Screen getScreen() {

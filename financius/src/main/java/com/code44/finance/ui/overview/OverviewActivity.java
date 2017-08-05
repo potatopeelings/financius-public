@@ -84,16 +84,8 @@ public class OverviewActivity extends BaseDrawerActivity implements LoaderManage
     }
 
     @Override protected void onDestroy() {
-        super.onDestroy();
         getEventBus().unregister(this);
-    }
-
-    @Override public void onResume() {
-        super.onResume();
-    }
-
-    @Override public void onPause() {
-        super.onPause();
+        super.onDestroy();
     }
 
     @Override protected NavigationScreen getNavigationScreen() {

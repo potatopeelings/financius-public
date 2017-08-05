@@ -9,6 +9,7 @@ import com.code44.finance.qualifiers.ApplicationContext;
 import com.code44.finance.services.StartupService;
 import com.code44.finance.ui.settings.security.Security;
 import com.code44.finance.utils.EventBus;
+import com.code44.finance.utils.filter.TransactionFilter;
 import com.code44.finance.utils.preferences.GeneralPrefs;
 
 import javax.inject.Singleton;
@@ -34,5 +35,9 @@ class AccountModule {
 
     @Provides @Singleton public GeneralPrefs provideGeneralPrefs(@ApplicationContext Context context, EventBus eventBus) {
         return new GeneralPrefs(context, eventBus);
+    }
+
+    @Provides @Singleton public TransactionFilter provideTransactionFilter() {
+        return new TransactionFilter();
     }
 }

@@ -64,19 +64,25 @@ public class AccountsPresenter extends Presenter implements AutoCompletePresente
     }
 
     public void setTransactionType(TransactionType transactionType) {
-        switch (transactionType) {
-            case Expense:
-                accountFromButton.setVisibility(View.VISIBLE);
-                accountToButton.setVisibility(View.GONE);
-                break;
-            case Income:
-                accountFromButton.setVisibility(View.GONE);
-                accountToButton.setVisibility(View.VISIBLE);
-                break;
-            case Transfer:
-                accountFromButton.setVisibility(View.VISIBLE);
-                accountToButton.setVisibility(View.VISIBLE);
-                break;
+        if (transactionType == null) {
+            accountFromButton.setVisibility(View.VISIBLE);
+            accountToButton.setVisibility(View.VISIBLE);
+        }
+        else {
+            switch (transactionType) {
+                case Expense:
+                    accountFromButton.setVisibility(View.VISIBLE);
+                    accountToButton.setVisibility(View.GONE);
+                    break;
+                case Income:
+                    accountFromButton.setVisibility(View.GONE);
+                    accountToButton.setVisibility(View.VISIBLE);
+                    break;
+                case Transfer:
+                    accountFromButton.setVisibility(View.VISIBLE);
+                    accountToButton.setVisibility(View.VISIBLE);
+                    break;
+            }
         }
     }
 

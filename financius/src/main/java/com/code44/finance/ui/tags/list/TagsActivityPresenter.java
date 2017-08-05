@@ -14,6 +14,10 @@ import com.code44.finance.ui.tags.detail.TagActivity;
 import com.code44.finance.ui.tags.edit.TagEditActivity;
 
 class TagsActivityPresenter extends ModelsActivityPresenter<Tag> {
+    public TagsActivityPresenter(boolean isReadOnly) {
+        super(isReadOnly);
+    }
+
     @Override protected ModelsAdapter<Tag> createAdapter(ModelsAdapter.OnModelClickListener<Tag> defaultOnModelClickListener) {
         return new TagsAdapter(defaultOnModelClickListener);
     }

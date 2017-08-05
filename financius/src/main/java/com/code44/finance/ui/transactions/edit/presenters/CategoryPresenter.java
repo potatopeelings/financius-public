@@ -53,22 +53,28 @@ public class CategoryPresenter extends Presenter implements AutoCompletePresente
 
     public void setTransactionType(TransactionType transactionType) {
         this.transactionType = transactionType;
-        switch (transactionType) {
-            case Expense:
-                colorImageView.setVisibility(View.VISIBLE);
-                categoryContainerView.setVisibility(View.VISIBLE);
-                categoryDividerView.setVisibility(View.VISIBLE);
-                break;
-            case Income:
-                colorImageView.setVisibility(View.VISIBLE);
-                categoryContainerView.setVisibility(View.VISIBLE);
-                categoryDividerView.setVisibility(View.VISIBLE);
-                break;
-            case Transfer:
-                colorImageView.setVisibility(View.GONE);
-                categoryContainerView.setVisibility(View.GONE);
-                categoryDividerView.setVisibility(View.GONE);
-                break;
+        if (transactionType == null) {
+            colorImageView.setVisibility(View.VISIBLE);
+            categoryContainerView.setVisibility(View.VISIBLE);
+            categoryDividerView.setVisibility(View.VISIBLE);
+        } else {
+            switch (transactionType) {
+                case Expense:
+                    colorImageView.setVisibility(View.VISIBLE);
+                    categoryContainerView.setVisibility(View.VISIBLE);
+                    categoryDividerView.setVisibility(View.VISIBLE);
+                    break;
+                case Income:
+                    colorImageView.setVisibility(View.VISIBLE);
+                    categoryContainerView.setVisibility(View.VISIBLE);
+                    categoryDividerView.setVisibility(View.VISIBLE);
+                    break;
+                case Transfer:
+                    colorImageView.setVisibility(View.GONE);
+                    categoryContainerView.setVisibility(View.GONE);
+                    categoryDividerView.setVisibility(View.GONE);
+                    break;
+            }
         }
     }
 
@@ -79,15 +85,20 @@ public class CategoryPresenter extends Presenter implements AutoCompletePresente
 
     private int getCategoryColor(Category category, TransactionType transactionType) {
         if (category == null) {
-            switch (transactionType) {
-                case Expense:
-                    return ThemeUtils.getColor(categoryButton.getContext(), R.attr.textColorNegative);
-                case Income:
-                    return ThemeUtils.getColor(categoryButton.getContext(), R.attr.textColorPositive);
-                case Transfer:
-                    return ThemeUtils.getColor(categoryButton.getContext(), R.attr.textColorNeutral);
-                default:
-                    throw new IllegalArgumentException("Transaction type " + transactionType + " is not supported.");
+            if (transactionType == null) {
+                return ThemeUtils.getColor(categoryButton.getContext(), R.attr.textColorTransparent);
+            }
+            else {
+                switch (transactionType) {
+                    case Expense:
+                        return ThemeUtils.getColor(categoryButton.getContext(), R.attr.textColorNegative);
+                    case Income:
+                        return ThemeUtils.getColor(categoryButton.getContext(), R.attr.textColorPositive);
+                    case Transfer:
+                        return ThemeUtils.getColor(categoryButton.getContext(), R.attr.textColorNeutral);
+                    default:
+                        throw new IllegalArgumentException("Transaction type " + transactionType + " is not supported.");
+                }
             }
         } else {
             return category.getColor();

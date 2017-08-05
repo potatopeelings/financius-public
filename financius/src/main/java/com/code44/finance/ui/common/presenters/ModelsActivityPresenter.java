@@ -40,6 +40,7 @@ public abstract class ModelsActivityPresenter<M extends Model> extends RecyclerV
     private static final String STATE_SELECTED_MODELS = ModelsActivityPresenter.class.getName() + ".STATE_SELECTED_MODELS";
 
     private Mode mode;
+    protected boolean isReadOnly;
 
     public static void addViewExtras(Intent intent) {
         intent.putExtra(EXTRA_MODE, Mode.View);
@@ -71,6 +72,14 @@ public abstract class ModelsActivityPresenter<M extends Model> extends RecyclerV
             models.add((T) parcelable);
         }
         return models;
+    }
+
+    public ModelsActivityPresenter() {
+        this(false);
+    }
+
+    public ModelsActivityPresenter(boolean isReadOnly) {
+        this.isReadOnly = isReadOnly;
     }
 
     @Override public void onCreate(BaseActivity activity, Bundle savedInstanceState) {
@@ -125,6 +134,12 @@ public abstract class ModelsActivityPresenter<M extends Model> extends RecyclerV
     @Override public boolean onCreateOptionsMenu(BaseActivity activity, Menu menu) {
         super.onCreateOptionsMenu(activity, menu);
         activity.getMenuInflater().inflate(R.menu.models, menu);
+
+        if (isReadOnly) {
+            MenuItem newAction = menu.findItem(R.id.action_new);
+            newAction.setVisible(false);
+        }
+
         return true;
     }
 

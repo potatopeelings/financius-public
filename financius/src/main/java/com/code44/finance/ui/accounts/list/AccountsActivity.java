@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.appcompat.R.bool;
 
 import com.code44.finance.R;
 import com.code44.finance.money.AmountFormatter;
@@ -18,18 +19,30 @@ import com.code44.finance.utils.preferences.GeneralPrefs;
 import javax.inject.Inject;
 
 public class AccountsActivity extends BaseDrawerActivity {
+    private static final String CONFIGURABLE = "CONFIGURABLE";
+    private static final String READ_ONLY = "READ_ONLY";
+
     @Inject GeneralPrefs generalPrefs;
     @Inject CurrenciesManager currenciesManager;
     @Inject AmountFormatter amountFormatter;
 
     public static Intent makeViewIntent(Context context) {
         final Intent intent = makeIntentForActivity(context, AccountsActivity.class);
+        // stand alone listing should have configuration
+        intent.putExtra(CONFIGURABLE, true);
         AccountsActivityPresenter.addViewExtras(intent);
         return intent;
     }
 
     public static void startSelect(Activity activity, int requestCode) {
+        startSelect(activity, requestCode, false);
+    }
+
+    public static void startSelect(Activity activity, int requestCode, boolean isReadOnly) {
         final Intent intent = makeIntentForActivity(activity, AccountsActivity.class);
+        intent.putExtra(READ_ONLY, isReadOnly);
+        // account selection view should not have configuration
+        intent.putExtra(CONFIGURABLE, false);
         AccountsActivityPresenter.addSelectExtras(intent);
         startActivityForResult(activity, intent, requestCode);
     }
@@ -49,7 +62,11 @@ public class AccountsActivity extends BaseDrawerActivity {
     }
 
     @Override protected ActivityPresenter onCreateActivityPresenter() {
-        return new AccountsActivityPresenter(generalPrefs, currenciesManager, amountFormatter);
+        Bundle extras = getIntent().getExtras();
+        boolean isReadOnly = extras.getBoolean(READ_ONLY);
+        boolean isConfigurable =  extras.getBoolean(CONFIGURABLE);
+
+        return new AccountsActivityPresenter(generalPrefs, currenciesManager, amountFormatter, isReadOnly, isConfigurable);
     }
 
     @Override protected NavigationScreen getNavigationScreen() {

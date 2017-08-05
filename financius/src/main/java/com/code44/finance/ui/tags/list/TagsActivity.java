@@ -14,6 +14,8 @@ import com.code44.finance.utils.analytics.Analytics;
 import java.util.List;
 
 public class TagsActivity extends BaseActivity {
+    private static final String READ_ONLY = "READ_ONLY";
+
     public static void start(Context context) {
         final Intent intent = makeIntentForActivity(context, TagsActivity.class);
         TagsActivityPresenter.addViewExtras(intent);
@@ -21,7 +23,12 @@ public class TagsActivity extends BaseActivity {
     }
 
     public static void startMultiSelect(Activity activity, int requestCode, List<Tag> selectedTags) {
+        startMultiSelect(activity, requestCode, selectedTags, false);
+    }
+
+    public static void startMultiSelect(Activity activity, int requestCode, List<Tag> selectedTags, boolean isReadOnly) {
         final Intent intent = makeIntentForActivity(activity, TagsActivity.class);
+        intent.putExtra(READ_ONLY, isReadOnly);
         TagsActivityPresenter.addMultiSelectExtras(intent, selectedTags);
         startActivityForResult(activity, intent, requestCode);
     }
@@ -32,7 +39,7 @@ public class TagsActivity extends BaseActivity {
     }
 
     @Override protected ActivityPresenter onCreateActivityPresenter() {
-        return new TagsActivityPresenter();
+        return new TagsActivityPresenter(getIntent().getExtras().getBoolean(READ_ONLY));
     }
 
     @Override protected Analytics.Screen getScreen() {

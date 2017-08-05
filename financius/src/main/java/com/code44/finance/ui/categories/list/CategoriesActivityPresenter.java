@@ -26,6 +26,10 @@ class CategoriesActivityPresenter extends ModelsActivityPresenter<Category> {
 
     private TransactionType transactionType;
 
+    public CategoriesActivityPresenter(boolean isReadOnly) {
+        super(isReadOnly);
+    }
+
     public static void addExtras(Intent intent, TransactionType transactionType) {
         intent.putExtra(EXTRA_TRANSACTION_TYPE, transactionType);
     }

@@ -67,6 +67,7 @@
     <string name="transactions_few">Transactions</string>
     <string name="transactions_many">Transactions</string>
     <string name="transactions_other">Transactions</string>
+    <string name="transactions_filtered">Filtered Transactions</string>
     <string name="overview">Overview</string>
     <string name="open_navigation">Open navigation</string>
     <string name="close_navigation">Close navigation</string>
@@ -118,6 +119,8 @@
     <string name="confirm_password">Confirm password</string>
     <string name="show_all">Show all</string>
     <string name="translate">Translate</string>
+    <string name="filter">Filter</string>
+    <string name="clear">Clear</string>
 
     <string name="f_change_to_x">Change to %s</string>
     <string name="f_current_main_currency_is_x">Current main currency is %s</string>

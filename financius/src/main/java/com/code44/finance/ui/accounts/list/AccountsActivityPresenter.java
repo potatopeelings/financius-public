@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.SwitchCompat;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.TextView;
@@ -27,13 +29,16 @@ class AccountsActivityPresenter extends ModelsActivityPresenter<Account> impleme
     private final GeneralPrefs generalPrefs;
     private final CurrenciesManager currenciesManager;
     private final AmountFormatter amountFormatter;
+    private final boolean isConfigurable;
 
     private TextView balanceTextView;
 
-    public AccountsActivityPresenter(GeneralPrefs generalPrefs, CurrenciesManager currenciesManager, AmountFormatter amountFormatter) {
+    public AccountsActivityPresenter(GeneralPrefs generalPrefs, CurrenciesManager currenciesManager, AmountFormatter amountFormatter, boolean isReadOnly, boolean isConfigurable) {
+        super(isReadOnly);
         this.generalPrefs = generalPrefs;
         this.currenciesManager = currenciesManager;
         this.amountFormatter = amountFormatter;
+        this.isConfigurable = isConfigurable;
     }
 
     @Override public void onCreate(BaseActivity activity, Bundle savedInstanceState) {
@@ -48,6 +53,11 @@ class AccountsActivityPresenter extends ModelsActivityPresenter<Account> impleme
         }
         hideZeroBalanceAccountsSwitch.setChecked(generalPrefs.getHideZeroBalanceAccounts());
         hideZeroBalanceAccountsSwitch.setOnCheckedChangeListener(this);
+
+        if (!isConfigurable) {
+            final View settingsContainerView = findView(activity, R.id.settingsContainerView);
+            settingsContainerView.setVisibility(View.GONE);
+        }
     }
 
     @Override public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

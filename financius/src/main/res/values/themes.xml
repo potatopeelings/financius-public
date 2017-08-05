@@ -16,6 +16,7 @@
         <item name="textColorPositive">#259b24</item>
         <item name="textColorNegative">#e51c23</item>
         <item name="textColorNeutral">#607d8b</item>
+        <item name="textColorTransparent">#00000000</item>
 
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowContentTransitions" tools:ignore="NewApi">true</item>
