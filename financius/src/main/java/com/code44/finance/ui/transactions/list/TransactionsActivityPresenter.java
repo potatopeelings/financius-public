@@ -79,7 +79,7 @@ class TransactionsActivityPresenter extends ModelsActivityPresenter<Transaction>
     }
 
     @Override protected CursorLoader getModelsCursorLoader(Context context) {
-        Query query = Tables.Transactions.getQuery().clearSelection().clearArgs().selection(" 1 = 1 ");
+        Query query = Tables.Transactions.getQuery();
 
         if (transactionFilter.isApplied()) {
             if (transactionFilter.getTransactionType() != null) {
