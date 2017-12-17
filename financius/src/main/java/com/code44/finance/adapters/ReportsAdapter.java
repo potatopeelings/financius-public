@@ -38,7 +38,8 @@ public class ReportsAdapter extends RecyclerView.Adapter<ReportsAdapter.ViewHold
     @Override public void onBindViewHolder(final ViewHolder holder, final int position) {
         final CategoriesReportView categoriesReportView = (CategoriesReportView) ((CardView) holder.itemView).getChildAt(0);
         categoriesReportView.setPieChartData(pieChartData);
-        categoriesReportView.setTotalExpense(pieChartData == null ? 0 : pieChartData.getTotalValue());
+        categoriesReportView.setTotalBudget(pieChartData == null ? 0 : pieChartData.getTotalBudgetValue());
+        categoriesReportView.setTotalExpense(pieChartData == null ? 0 : pieChartData.getTotalExpenseValue());
     }
 
     @Override public int getItemCount() {

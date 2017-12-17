@@ -153,6 +153,20 @@ public final class DBMigration {
         }
     }
 
+    /**
+     * 82 - v0.18.3-debug-2
+     */
+    public static void upgradeV24(SQLiteDatabase db) {
+        try {
+            db.beginTransaction();
+            db.execSQL(Tables.Budgets.createScript());
+            db.execSQL(Tables.BudgetTags.createScript());
+            db.setTransactionSuccessful();
+        } finally {
+            db.endTransaction();
+        }
+    }
+
     public static void fixTransactionsWithNotExistingAccounts(SQLiteDatabase db) {
         final String tables = Tables.Transactions.TABLE_NAME
                 + " left join " + Tables.Accounts.TABLE_NAME + " as " + Tables.Accounts.TEMP_TABLE_NAME_FROM_ACCOUNT

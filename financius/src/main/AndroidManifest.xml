@@ -92,6 +92,15 @@
         <activity
             android:name=".ui.transactions.filter.TransactionFilterActivity"
             android:label="@string/filter" />
+        <activity
+            android:name=".ui.budgets.list.BudgetsActivity"
+            android:label="@string/budgets_other" />
+        <activity
+            android:name=".ui.budgets.detail.BudgetActivity"
+            android:label="@string/budgets_one" />
+        <activity
+            android:name=".ui.budgets.edit.BudgetEditActivity"
+            android:label="@string/budgets_one" />
         <activity android:name=".ui.user.LoginActivity" />
         <activity
             android:name=".ui.settings.data.DataActivity"
@@ -139,6 +148,10 @@
         <provider
             android:name=".data.providers.TransactionsProvider"
             android:authorities="${applicationId}.data.providers.TransactionsProvider"
+            android:exported="false" />
+        <provider
+            android:name=".data.providers.BudgetsProvider"
+            android:authorities="${applicationId}.data.providers.BudgetsProvider"
             android:exported="false" />
         <provider
             android:name=".data.providers.ExchangeRatesProvider"

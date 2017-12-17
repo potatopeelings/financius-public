@@ -8,55 +8,164 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
-        <FrameLayout
-            android:layout_width="@dimen/keyline_content_minus_keyline_2x"
-            android:layout_height="@dimen/keyline_content_minus_keyline_2x"
-            android:layout_gravity="center_vertical"
-            android:layout_marginRight="@dimen/keyline"
-            tools:ignore="RtlHardcoded">
+        <LinearLayout
+            android:id="@+id/budgetContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/space_small"
+            android:layout_marginBottom="@dimen/space_normal">
 
-            <ImageView
-                android:id="@+id/colorImageView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
                 android:layout_gravity="center_vertical"
-                android:src="@drawable/circle"
-                tools:ignore="ContentDescription" />
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:id="@+id/budgetPercentage100Container"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/space_small">
+
+                    <LinearLayout
+                        android:id="@+id/budgetPercentage100"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/space_normal"
+                        android:layout_weight="1"
+                        android:layout_gravity="center_vertical"
+                        android:background="@color/bpWhite"
+                        android:layout_marginRight="@dimen/space_normal"
+                        android:orientation="horizontal">
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/budgetPercentage100Multiplier"
+                        style="@style/Text.Caption"
+                        android:layout_gravity="right"
+                        android:layout_width="@dimen/space_xlarge"
+                        android:layout_height="wrap_content"
+                        android:textColor="?android:textColorSecondary"
+                        android:textSize="@dimen/space_normal"
+                        android:includeFontPadding="false"
+                        tools:text="x 2" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/budgetPercentage100ModuloContainer"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/space_small">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/space_normal"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:layout_marginRight="@dimen/space_normal"
+                        android:orientation="horizontal"
+                        android:background="@color/grey">
+
+                        <LinearLayout
+                            android:id="@+id/budgetPercentage100Modulo"
+                            android:layout_width="0dp"
+                            android:layout_weight=".20"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:background="@color/bpWhite">
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/budgetPercentage100ModuloNegative"
+                            android:layout_width="0dp"
+                            android:layout_weight=".80"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <Space
+                        android:layout_width="@dimen/space_xlarge"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+            </LinearLayout>
 
             <TextView
-                android:id="@+id/percent_TV"
+                android:id="@+id/budgetAmountTextView"
                 style="@style/Text.Caption"
+                android:layout_width="@dimen/keyline_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:layout_marginLeft="@dimen/space_normal"
+                tools:ignore="RtlHardcoded"
+                tools:text="58.99 $" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:layout_width="@dimen/keyline_content_minus_keyline_2x"
+                android:layout_height="@dimen/keyline_content_minus_keyline_2x"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="@dimen/keyline"
+                tools:ignore="RtlHardcoded">
+
+                <ImageView
+                    android:id="@+id/colorImageView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/circle"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/percent_TV"
+                    style="@style/Text.Caption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textColor="?android:textColorPrimaryInverse"
+                    tools:text="100%"
+                    tools:textColor="?android:textColorPrimary" />
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/titleTextView"
+                style="@style/Text.Body2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:singleLine="true"
+                tools:text="Leisure" />
+
+            <TextView
+                android:id="@+id/amountTextView"
+                style="@style/Text.Body2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:textColor="?android:textColorPrimaryInverse"
-                tools:text="100%"
-                tools:textColor="?android:textColorPrimary" />
+                android:layout_gravity="right|center_vertical"
+                android:layout_marginLeft="@dimen/space_normal"
+                tools:ignore="RtlHardcoded"
+                tools:text="58.99 $" />
 
-        </FrameLayout>
-
-        <TextView
-            android:id="@+id/titleTextView"
-            style="@style/Text.Body2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1"
-            android:ellipsize="end"
-            android:singleLine="true"
-            tools:text="Leisure" />
-
-        <TextView
-            android:id="@+id/amountTextView"
-            style="@style/Text.Body2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right|center_vertical"
-            android:layout_marginLeft="@dimen/space_normal"
-            tools:ignore="RtlHardcoded"
-            tools:text="58.99 $" />
+        </LinearLayout>
 
     </LinearLayout>
+
 </LinearLayout>

@@ -116,7 +116,7 @@ public class ReportsFragment extends BaseReportFragment implements LoaderManager
 //        sortedExpenses.putAll(expenses);
 //        final PieChartData.Builder builder = PieChartData.builder();
 //        for (Category category : sortedExpenses.descendingKeySet()) {
-//            builder.addValues(new PieChartValue(sortedExpenses.get(category), category.getColor()));
+//            builder.addExpenseValues(new PieChartValue(sortedExpenses.get(category), category.getColor()));
 //        }
 //        final PieChartData pieChartData = builder.build();
 //        adapter.setCategoriesReportData(pieChartData);

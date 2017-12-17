@@ -156,9 +156,9 @@ public class OverviewActivity extends BaseDrawerActivity implements LoaderManage
     }
 
     private void onTransactionsLoaded(Cursor cursor) {
-        final CategoriesReportData categoriesReportData = new CategoriesReportData(this, cursor, currenciesManager, TransactionType.Expense);
+        final CategoriesReportData categoriesReportData = new CategoriesReportData(this, cursor, null, currentInterval.getInterval(), currenciesManager, TransactionType.Expense);
         overviewGraphView.setPieChartData(categoriesReportData.getPieChartData());
-        overviewGraphView.setTotalExpense(categoriesReportData.getPieChartData().getTotalValue());
+        overviewGraphView.setTotalExpense(categoriesReportData.getPieChartData().getTotalExpenseValue());
 
         trendsChartPresenter.setData(cursor, currentInterval);
     }

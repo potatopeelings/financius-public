@@ -11,6 +11,7 @@ import android.widget.ListView;
 import com.code44.finance.R;
 import com.code44.finance.common.model.TransactionType;
 import com.code44.finance.data.db.Tables;
+import com.code44.finance.data.providers.BudgetsProvider;
 import com.code44.finance.data.providers.TransactionsProvider;
 import com.code44.finance.money.AmountFormatter;
 import com.code44.finance.money.CurrenciesManager;
@@ -24,6 +25,7 @@ import javax.inject.Inject;
 
 public class CategoriesReportActivity extends BaseReportActivity implements LoaderManager.LoaderCallbacks<Cursor> {
     private static final int LOADER_TRANSACTIONS = 1;
+    private static final int LOADER_BUDGETS = 2;
 
     @Inject ActiveInterval activeInterval;
     @Inject CurrenciesManager currenciesManager;
@@ -33,6 +35,9 @@ public class CategoriesReportActivity extends BaseReportActivity implements Load
 
     private CategoriesReportAdapter adapter;
     private TransactionType transactionType = TransactionType.Expense;
+
+    private Cursor transactionsCursor;
+    private Cursor budgetsCursor;
 
     public static Intent makeIntent(Context context) {
         return makeIntentForActivity(context, CategoriesReportActivity.class);
@@ -78,6 +83,11 @@ public class CategoriesReportActivity extends BaseReportActivity implements Load
                         .getQuery()
                         .selection(" and " + Tables.Transactions.DATE + " between ? and ?", String.valueOf(activeInterval.getInterval().getStartMillis()), String.valueOf(activeInterval.getInterval().getEndMillis() - 1))
                         .asCursorLoader(this, TransactionsProvider.uriTransactions());
+            case LOADER_BUDGETS:
+                return Tables.Budgets
+                        .getQuery()
+                        .selection(" and " + Tables.Budgets.DATE_START + " <= ?", String.valueOf(activeInterval.getInterval().getEndMillis()))
+                        .asCursorLoader(this, BudgetsProvider.uriBudgets());
         }
         return null;
     }
@@ -85,8 +95,15 @@ public class CategoriesReportActivity extends BaseReportActivity implements Load
     @Override public void onLoadFinished(final Loader<Cursor> loader, final Cursor cursor) {
         switch (loader.getId()) {
             case LOADER_TRANSACTIONS:
-                onTransactionsLoaded(cursor);
+                transactionsCursor = cursor;
                 break;
+            case LOADER_BUDGETS:
+                budgetsCursor = cursor;
+                break;
+        }
+
+        if (transactionsCursor != null && budgetsCursor != null) {
+            onTransactionsAndBudgetsLoaded(transactionsCursor, budgetsCursor);
         }
     }
 
@@ -94,13 +111,17 @@ public class CategoriesReportActivity extends BaseReportActivity implements Load
     }
 
     @Subscribe public void onActiveIntervalChanged(ActiveInterval interval) {
+        transactionsCursor = null;
+        budgetsCursor = null;
         getSupportLoaderManager().restartLoader(LOADER_TRANSACTIONS, null, this);
+        getSupportLoaderManager().restartLoader(LOADER_BUDGETS, null, this);
     }
 
-    private void onTransactionsLoaded(Cursor cursor) {
-        final CategoriesReportData categoriesReportData = new CategoriesReportData(this, cursor, currenciesManager, transactionType);
+    private void onTransactionsAndBudgetsLoaded(Cursor transactionsCursor, Cursor budgetsCursor) {
+        final CategoriesReportData categoriesReportData = new CategoriesReportData(this, transactionsCursor, budgetsCursor, activeInterval.getInterval(), currenciesManager, transactionType);
         categoriesReportView.setPieChartData(categoriesReportData.getPieChartData());
-        categoriesReportView.setTotalExpense(categoriesReportData.getPieChartData().getTotalValue());
-        adapter.setData(categoriesReportData, categoriesReportData.getPieChartData().getTotalValue());
+        categoriesReportView.setTotalBudget(categoriesReportData.getPieChartData().getTotalBudgetValue());
+        categoriesReportView.setTotalExpense(categoriesReportData.getPieChartData().getTotalExpenseValue());
+        adapter.setData(categoriesReportData, categoriesReportData.getPieChartData().getTotalExpenseValue());
     }
 }

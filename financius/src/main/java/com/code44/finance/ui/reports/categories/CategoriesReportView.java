@@ -19,6 +19,7 @@ import javax.inject.Inject;
 
 public class CategoriesReportView extends LinearLayout {
     private final PieChartView pieChartView;
+    private final TextView totalBudgetTextView;
     private final TextView totalExpenseTextView;
 
     @Inject AmountFormatter amountFormatter;
@@ -39,14 +40,17 @@ public class CategoriesReportView extends LinearLayout {
 
         // Get views
         pieChartView = (PieChartView) findViewById(R.id.pieChartView);
+        totalBudgetTextView = (TextView) findViewById(R.id.totalBudgetTextView);
         totalExpenseTextView = (TextView) findViewById(R.id.totalExpenseTextView);
 
         // Setup
         applyStyle(context, attrs);
         setPieChartData(null);
         if (isInEditMode()) {
+            totalBudgetTextView.setText("0.00 $");
             totalExpenseTextView.setText("0.00 $");
         } else {
+            setTotalBudget(0L);
             setTotalExpense(0);
         }
     }
@@ -60,6 +64,16 @@ public class CategoriesReportView extends LinearLayout {
 
     public void setPieChartData(PieChartData pieChartData) {
         pieChartView.setPieChartData(pieChartData);
+    }
+
+    public void setTotalBudget(Long totalBudget) {
+        if (totalBudget != null) {
+            totalBudgetTextView.setVisibility(VISIBLE);
+            totalBudgetTextView.setText(getContext().getString(R.string.budgets_one) + ": " + amountFormatter.format(totalBudget));
+        }
+        else {
+            totalBudgetTextView.setVisibility(GONE);
+        }
     }
 
     public void setTotalExpense(long totalExpense) {
@@ -80,6 +94,7 @@ public class CategoriesReportView extends LinearLayout {
             }
 
             final int textColor = ThemeUtils.getColor(getContext(), viewBackgroundTheme == ViewBackgroundTheme.Light ? android.R.attr.textColorPrimary : android.R.attr.textColorPrimaryInverse);
+            totalBudgetTextView.setTextColor(textColor);
             totalExpenseTextView.setTextColor(textColor);
         } finally {
             a.recycle();

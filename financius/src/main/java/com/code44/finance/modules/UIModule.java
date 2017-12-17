@@ -6,6 +6,9 @@ import com.code44.finance.ui.SplashActivity;
 import com.code44.finance.ui.accounts.detail.AccountActivity;
 import com.code44.finance.ui.accounts.edit.AccountEditActivity;
 import com.code44.finance.ui.accounts.list.AccountsActivity;
+import com.code44.finance.ui.budgets.detail.BudgetActivity;
+import com.code44.finance.ui.budgets.edit.BudgetEditActivity;
+import com.code44.finance.ui.budgets.list.BudgetsActivity;
 import com.code44.finance.ui.categories.detail.CategoryActivity;
 import com.code44.finance.ui.categories.edit.CategoryEditActivity;
 import com.code44.finance.ui.categories.list.CategoriesActivity;
@@ -56,6 +59,9 @@ import dagger.Module;
                 TransactionActivity.class,
                 TransactionEditActivity.class,
                 TransactionFilterActivity.class,
+                BudgetsActivity.class,
+                BudgetActivity.class,
+                BudgetEditActivity.class,
                 CategoriesActivity.class,
                 CategoryActivity.class,
                 CategoryEditActivity.class,

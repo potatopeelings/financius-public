@@ -49,12 +49,20 @@ public class CategoriesProvider extends ModelProvider {
         if (affectedIds.size() > 0) {
             final Uri transactionsUri = uriForDeleteFromModelState(TransactionsProvider.uriTransactions(), modelState);
 
-            final Query query = Query.create().selectionInClause(Tables.Transactions.CATEGORY_ID.getName(), affectedIds);
-            getContext().getContentResolver().delete(transactionsUri, query.getSelection(), query.getSelectionArgs());
+            final Query transactionsQuery = Query.create().selectionInClause(Tables.Transactions.CATEGORY_ID.getName(), affectedIds);
+            getContext().getContentResolver().delete(transactionsUri, transactionsQuery.getSelection(), transactionsQuery.getSelectionArgs());
+
+            final Uri budgetsUri = uriForDeleteFromModelState(BudgetsProvider.uriBudgets(), modelState);
+
+            final Query budgetsQuery = Query.create().selectionInClause(Tables.Budgets.CATEGORY_ID.getName(), affectedIds);
+            getContext().getContentResolver().delete(budgetsUri, budgetsQuery.getSelection(), budgetsQuery.getSelectionArgs());
         }
     }
 
     @Override protected Uri[] getOtherUrisToNotify() {
-        return new Uri[]{TransactionsProvider.uriTransactions()};
+        return new Uri[]{
+            TransactionsProvider.uriTransactions(),
+            BudgetsProvider.uriBudgets()
+        };
     }
 }

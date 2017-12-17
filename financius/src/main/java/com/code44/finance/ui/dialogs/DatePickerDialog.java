@@ -15,7 +15,7 @@ public class DatePickerDialog extends BaseDialogFragment implements android.app.
     private static final String ARG_MONTH_OF_YEAR = "ARG_MONTH_OF_YEAR";
     private static final String ARG_DAY_OF_MONTH = "ARG_DAY_OF_MONTH";
 
-    private static final String FRAGMENT_DATE_PICKER = DatePickerDialog.class.getName() + ".FRAGMENT_DATE_PICKER";
+    public static final String FRAGMENT_DATE_PICKER = DatePickerDialog.class.getName() + ".FRAGMENT_DATE_PICKER";
 
     public static void show(FragmentManager fragmentManager, int requestCode, long timestamp) {
         final DateTime date = new DateTime(timestamp);

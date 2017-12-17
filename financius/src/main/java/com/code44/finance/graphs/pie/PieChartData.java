@@ -5,59 +5,70 @@ import java.util.Collections;
 import java.util.List;
 
 public final class PieChartData {
-    private final List<PieChartValue> values;
-    private final long totalValue;
+    private final List<PieChartValue> expenseValues;
+    private final Long totalBudgetValue;
+    private final long totalExpenseValue;
 
-    private PieChartData(List<PieChartValue> values) {
-        this.values = values;
+    private PieChartData(List<PieChartValue> expenseValues, Long totalBudgetValue) {
+        this.expenseValues = expenseValues;
 
-        long total = 0;
-        for (PieChartValue value : values) {
-            total += value.getValue();
+        long totalExpenseValue = 0;
+        for (PieChartValue expenseValue : expenseValues) {
+            totalExpenseValue += expenseValue.getValue();
         }
-        this.totalValue = total;
+        this.totalBudgetValue = totalBudgetValue;
+        this.totalExpenseValue = totalExpenseValue;
     }
 
     public static Builder builder() {
         return new Builder();
     }
 
-    public List<PieChartValue> getValues() {
-        return values;
+    public List<PieChartValue> getExpenseValues() {
+        return expenseValues;
     }
 
-    public long getTotalValue() {
-        return totalValue;
+    public Long getTotalBudgetValue() {
+        return totalBudgetValue;
+    }
+
+    public long getTotalExpenseValue() {
+        return totalExpenseValue;
     }
 
     public static class Builder {
-        private List<PieChartValue> values;
+        private Long budgetTotalValue;
+        private List<PieChartValue> expenseValues;
 
         public Builder() {
         }
 
-        public Builder setValues(List<PieChartValue> values) {
-            this.values = values;
+        public Builder setExpenseValues(List<PieChartValue> expenseValues) {
+            this.expenseValues = expenseValues;
             return this;
         }
 
-        public Builder addValues(PieChartValue value) {
-            if (values == null) {
-                values = new ArrayList<>();
+        public void setBudgetTotalValue(Long budgetTotalValue) {
+            this.budgetTotalValue = budgetTotalValue;
+        }
+
+        public Builder addExpenseValues(PieChartValue value) {
+            if (expenseValues == null) {
+                expenseValues = new ArrayList<>();
             }
 
-            values.add(value);
+            expenseValues.add(value);
             return this;
         }
 
         public PieChartData build() {
             ensureSaneDefaults();
-            return new PieChartData(values);
+            return new PieChartData(expenseValues, budgetTotalValue);
         }
 
         private void ensureSaneDefaults() {
-            if (values == null) {
-                values = Collections.emptyList();
+            if (expenseValues == null) {
+                expenseValues = Collections.emptyList();
             }
         }
 

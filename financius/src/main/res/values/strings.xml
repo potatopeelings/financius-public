@@ -68,6 +68,8 @@
     <string name="transactions_many">Transactions</string>
     <string name="transactions_other">Transactions</string>
     <string name="transactions_filtered">Filtered Transactions</string>
+    <string name="budgets_one">Budget</string>
+    <string name="budgets_other">Budgets</string>
     <string name="overview">Overview</string>
     <string name="open_navigation">Open navigation</string>
     <string name="close_navigation">Close navigation</string>

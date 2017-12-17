@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    style="@style/AdapterItem"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:orientation="vertical"
+        android:layout_marginLeft="@dimen/keyline_content_minus_keyline">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/recurrenceTextView"
+                style="@style/Text.Caption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:lineSpacingMultiplier="1.25"
+                tools:text="Every 1 week on day 1, 2, 3 from 1 Jan 2002 to 3 Jan 2005" />
+
+            <TextView
+                android:id="@+id/amountTextView"
+                style="@style/Text.Body2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginLeft="@dimen/space_large"
+                tools:ignore="RtlHardcoded"
+                tools:text="58.99 $" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tagsTextView"
+            style="@style/Text.Caption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="?android:textColorSecondary"
+            android:layout_marginTop="@dimen/keyline_half"
+            tools:text="Rent Water Electricity">
+        </TextView>
+
+    </LinearLayout>
+
+</LinearLayout>

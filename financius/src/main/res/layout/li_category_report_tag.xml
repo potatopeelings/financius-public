@@ -1,42 +1,154 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    style="@style/AdapterItem"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:minHeight="0dp"
-    android:orientation="horizontal"
-    android:paddingBottom="0dp"
-    android:paddingLeft="0dp"
-    android:paddingRight="0dp"
-    android:paddingTop="0dp">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-    <Space
-        android:layout_width="@dimen/keyline_content_minus_keyline_2x"
-        android:layout_height="1dp"
-        android:layout_marginRight="@dimen/keyline"
-        tools:ignore="RtlHardcoded" />
-
-    <TextView
-        android:id="@+id/titleTextView"
-        style="@style/Text.Caption"
-        android:layout_width="0dp"
+    <LinearLayout
+        android:id="@+id/budgetContainer"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_weight="1"
-        android:ellipsize="end"
-        android:singleLine="true"
-        android:textColor="?android:textColorSecondary"
-        tools:text="Lunch" />
+        android:layout_marginTop="@dimen/space_small"
+        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/amountTextView"
-        style="@style/Text.Caption"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right|center_vertical"
-        android:layout_marginLeft="@dimen/space_normal"
-        android:textColor="?android:textColorSecondary"
-        tools:ignore="RtlHardcoded"
-        tools:text="58.99 $" />
+        <Space
+            android:layout_width="@dimen/keyline_content_minus_keyline_2x"
+            android:layout_height="1dp"
+            android:layout_marginRight="@dimen/keyline"
+            tools:ignore="RtlHardcoded" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:id="@+id/budgetPercentage100Container"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_small">
+
+                <LinearLayout
+                    android:id="@+id/budgetPercentage100"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/space_normal"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_vertical"
+                    android:background="@color/bpWhite"
+                    android:layout_marginRight="@dimen/space_normal"
+                    android:orientation="horizontal">
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/budgetPercentage100Multiplier"
+                    style="@style/Text.Caption"
+                    android:layout_gravity="right|top"
+                    android:layout_width="@dimen/space_xlarge"
+                    android:layout_height="wrap_content"
+                    android:textColor="?android:textColorSecondary"
+                    android:textSize="@dimen/space_normal"
+                    android:includeFontPadding="false"
+                    tools:text="x 2" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/budgetPercentage100ModuloContainer"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_small">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/space_normal"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:layout_marginRight="@dimen/space_normal"
+                    android:orientation="horizontal"
+                    android:background="@color/grey">
+
+                    <LinearLayout
+                        android:id="@+id/budgetPercentage100Modulo"
+                        android:layout_width="0dp"
+                        android:layout_weight=".20"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:background="@color/bpWhite">
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/budgetPercentage100ModuloNegative"
+                        android:layout_width="0dp"
+                        android:layout_weight=".80"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="@dimen/space_xlarge"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <Space
+            android:layout_width="@dimen/keyline_content"
+            android:layout_height="1dp"
+            android:gravity="right"
+            android:layout_marginLeft="@dimen/space_normal"
+            tools:ignore="RtlHardcoded" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/AdapterItem"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:minHeight="0dp"
+        android:orientation="horizontal"
+        android:paddingBottom="0dp"
+        android:paddingLeft="0dp"
+        android:paddingRight="0dp"
+        android:paddingTop="0dp">
+
+        <Space
+            android:layout_width="@dimen/keyline_content_minus_keyline_2x"
+            android:layout_height="1dp"
+            android:layout_marginRight="@dimen/keyline"
+            tools:ignore="RtlHardcoded" />
+
+        <TextView
+            android:id="@+id/titleTextView"
+            style="@style/Text.Caption"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textColor="?android:textColorSecondary"
+            tools:text="Lunch" />
+
+        <TextView
+            android:id="@+id/amountTextView"
+            style="@style/Text.Caption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginLeft="@dimen/space_normal"
+            android:textColor="?android:textColorSecondary"
+            tools:ignore="RtlHardcoded"
+            tools:text="58.99 $" />
+
+    </LinearLayout>
 
 </LinearLayout>

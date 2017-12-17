@@ -24,7 +24,7 @@ android {
         applicationId 'com.code44.finance'
         targetSdkVersion 21
         minSdkVersion 16
-        versionCode 81
+        versionCode 82
         versionName '0.18.3'
         buildConfigField "boolean", "USE_LOCAL_SERVER", "true"
         buildConfigField "String", "LOCAL_SERVER_IP", "\"192.168.0.7\""
@@ -40,18 +40,19 @@ android {
     buildTypes {
         debug {
             applicationIdSuffix '.debug'
-            versionNameSuffix '-debug'
+            versionNameSuffix '-debug-2'
         }
         release {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             minifyEnabled true
             shrinkResources true
             applicationIdSuffix '.custom'
-            versionNameSuffix '-custom-1'
+            versionNameSuffix '-custom-2'
         }
     }
     sourceSets {
         androidTest.setRoot('src/test')
+        main.res.srcDirs += 'src/main/res-betterpickers'
     }
     signingConfigs {
         debug {

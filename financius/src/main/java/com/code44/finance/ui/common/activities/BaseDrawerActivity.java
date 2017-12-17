@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 
 import com.code44.finance.R;
 import com.code44.finance.ui.accounts.list.AccountsActivity;
+import com.code44.finance.ui.budgets.list.BudgetsActivity;
 import com.code44.finance.ui.common.navigation.NavigationFragment;
 import com.code44.finance.ui.common.navigation.NavigationScreen;
 import com.code44.finance.ui.overview.OverviewActivity;
@@ -135,6 +136,9 @@ public abstract class BaseDrawerActivity extends BaseActivity implements Navigat
             case Transactions:
                 intent = TransactionsActivity.makeViewIntent(this);
                 break;
+            case Budgets:
+                intent = BudgetsActivity.makeViewIntent(this);
+                break;
             case Reports:
                 intent = CategoriesReportActivity.makeIntent(this);
                 break;
@@ -188,6 +192,8 @@ public abstract class BaseDrawerActivity extends BaseActivity implements Navigat
                 return this instanceof AccountsActivity;
             case Transactions:
                 return this instanceof TransactionsActivity;
+            case Budgets:
+                return this instanceof BudgetsActivity;
             case Reports:
                 return this instanceof CategoriesReportActivity;
         }

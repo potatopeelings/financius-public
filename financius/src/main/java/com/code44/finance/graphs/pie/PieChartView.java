@@ -46,7 +46,7 @@ public class PieChartView extends View {
         applyStyle(context, attrs);
 
         if (isInEditMode()) {
-            setPieChartData(PieChartData.builder().setValues(Arrays.asList(new PieChartValue(15, 0xffe51c23), new PieChartValue(25, 0xff5677fc))).build());
+            setPieChartData(PieChartData.builder().setExpenseValues(Arrays.asList(new PieChartValue(15, 0xffe51c23), new PieChartValue(25, 0xff5677fc))).build());
         } else {
             setPieChartData(null);
         }
@@ -119,14 +119,14 @@ public class PieChartView extends View {
     @Override protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        final List<PieChartValue> values = pieChartData.getValues();
-        final long total = pieChartData.getTotalValue();
+        final List<PieChartValue> values = pieChartData.getExpenseValues();
+        final long totalExpense = pieChartData.getTotalExpenseValue();
         final boolean useCenter = paint.getStyle() == Paint.Style.FILL;
         float startAngle = -90.0f;
 
         if (values.size() > 0) {
             for (PieChartValue value : values) {
-                final float sweepAngle = 360.0f * value.getValue() / total;
+                final float sweepAngle = 360.0f * value.getValue() / totalExpense;
                 paint.setColor(value.getColor());
                 canvas.drawArc(rect, startAngle, sweepAngle + 1, useCenter, paint);
                 startAngle += sweepAngle;

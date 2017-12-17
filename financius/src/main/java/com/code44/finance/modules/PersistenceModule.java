@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.code44.finance.data.db.DBHelper;
 import com.code44.finance.data.providers.AccountsProvider;
+import com.code44.finance.data.providers.BudgetsProvider;
 import com.code44.finance.data.providers.CategoriesProvider;
 import com.code44.finance.data.providers.CurrenciesProvider;
 import com.code44.finance.data.providers.ExchangeRatesProvider;
@@ -30,6 +31,7 @@ import dagger.Provides;
                 AccountsProvider.class,
                 TransactionsProvider.class,
                 ExchangeRatesProvider.class,
+                BudgetsProvider.class,
                 StartupService.class
         }
 )

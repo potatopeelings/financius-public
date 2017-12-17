@@ -250,6 +250,9 @@ public final class Tables {
 
         public static final String[] PROJECTION_TRANSACTION = {"group_concat(" + ID + ",'" + CONCAT_SEPARATOR + "') as " + ID.getName(),
                 "group_concat(" + TITLE + ",'" + CONCAT_SEPARATOR + "') as " + TITLE.getName()};
+
+        public static final String[] PROJECTION_BUDGET = {"group_concat(" + ID + ",'" + CONCAT_SEPARATOR + "') as " + ID.getName(),
+                "group_concat(" + TITLE + ",'" + CONCAT_SEPARATOR + "') as " + TITLE.getName()};
     }
 
     public static final class Transactions {
@@ -312,6 +315,58 @@ public final class Tables {
 
         public static String createScript() {
             return makeRelationshipCreateScript(TABLE_NAME, TRANSACTION_ID, TAG_ID);
+        }
+    }
+
+    public static final class Budgets {
+        public static final String TABLE_NAME = "budgets";
+
+        public static final Column LOCAL_ID = getLocalIdColumn(TABLE_NAME);
+        public static final Column ID = getIdColumn(TABLE_NAME);
+        public static final Column MODEL_STATE = getModelStateColumn(TABLE_NAME);
+        public static final Column SYNC_STATE = getSyncStateColumn(TABLE_NAME);
+        public static final Column CATEGORY_ID = new Column(TABLE_NAME, "category_id", Column.DataType.TEXT);
+        public static final Column AMOUNT = new Column(TABLE_NAME, "amount", Column.DataType.INTEGER);
+        public static final Column DATE_START = new Column(TABLE_NAME, "date_start", Column.DataType.DATETIME);
+        public static final Column RECURRENCE = new Column(TABLE_NAME, "recurrence", Column.DataType.TEXT);
+
+        public static final String[] PROJECTION = {ID.getName(), MODEL_STATE.getName(), SYNC_STATE.getName(),
+                AMOUNT.getName(), CATEGORY_ID.getName(), DATE_START.getName(), RECURRENCE.getName()};
+
+        private Budgets() {
+        }
+
+        public static String createScript() {
+            return makeCreateScript(TABLE_NAME, LOCAL_ID, ID, MODEL_STATE, SYNC_STATE, AMOUNT, CATEGORY_ID, DATE_START, RECURRENCE);
+        }
+
+        public static Query getQuery() {
+            return Query.create()
+                    .projectionLocalId(Budgets.LOCAL_ID)
+                    .projection(Budgets.PROJECTION)
+                    .projection(Categories.PROJECTION)
+                    .projection(Tags.PROJECTION_BUDGET)
+                    .selection("(" + Budgets.MODEL_STATE + "=?", ModelState.Normal.asString())
+                    .selection(" or " + Budgets.MODEL_STATE + "=?)", ModelState.DeletedUndo.asString())
+                    .groupBy(ID.getName())
+                    .sortOrder(Categories.TITLE.getName())
+                    .sortOrder(Budgets.CATEGORY_ID.getName());
+        }
+    }
+
+    public static final class BudgetTags {
+        public static final String TABLE_NAME = "budget_tags";
+
+        public static final Column BUDGET_ID = new Column(TABLE_NAME, "budget_id", Column.DataType.TEXT);
+        public static final Column TAG_ID = new Column(TABLE_NAME, "tag_id", Column.DataType.TEXT);
+
+        public static final String[] PROJECTION = {BUDGET_ID.getName(), TAG_ID.getName()};
+
+        private BudgetTags() {
+        }
+
+        public static String createScript() {
+            return makeRelationshipCreateScript(TABLE_NAME, BUDGET_ID, TAG_ID);
         }
     }
 }

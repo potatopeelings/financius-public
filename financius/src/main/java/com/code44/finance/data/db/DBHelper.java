@@ -8,7 +8,7 @@ import com.code44.finance.money.CurrenciesManager;
 
 public class DBHelper extends SQLiteOpenHelper {
     private static final String NAME = "finance.db";
-    private static final int VERSION = 23;
+    private static final int VERSION = 24;
 
     private final Context context;
     private final CurrenciesManager currenciesManager;
@@ -36,6 +36,8 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(Tables.Tags.createScript());
         db.execSQL(Tables.Transactions.createScript());
         db.execSQL(Tables.TransactionTags.createScript());
+        db.execSQL(Tables.Budgets.createScript());
+        db.execSQL(Tables.BudgetTags.createScript());
 
         // Create indexes
         createIndex(db, Tables.CurrencyFormats.ID);
@@ -43,6 +45,7 @@ public class DBHelper extends SQLiteOpenHelper {
         createIndex(db, Tables.Categories.ID);
         createIndex(db, Tables.Tags.ID);
         createIndex(db, Tables.Transactions.ID);
+        createIndex(db, Tables.Budgets.ID);
 
         // Add defaults
         addDefaults(db, currenciesManager);
@@ -60,6 +63,8 @@ public class DBHelper extends SQLiteOpenHelper {
                 DBMigration.upgradeV22(db);
             case 22:
                 DBMigration.upgradeV23(db, currenciesManager);
+            case 23:
+                DBMigration.upgradeV24(db);
         }
     }
 

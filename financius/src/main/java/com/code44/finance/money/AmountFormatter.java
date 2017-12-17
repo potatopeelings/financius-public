@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.code44.finance.common.model.TransactionType;
 import com.code44.finance.data.db.Tables;
 import com.code44.finance.data.model.Account;
+import com.code44.finance.data.model.Budget;
 import com.code44.finance.data.model.CurrencyFormat;
 import com.code44.finance.data.model.Transaction;
 import com.code44.finance.data.providers.CurrenciesProvider;
@@ -36,6 +37,10 @@ public class AmountFormatter {
 
     public String format(String currencyCode, long amount) {
         return getCurrencyFormat(currencyCode).format(amount);
+    }
+
+    public String format(Budget budget) {
+        return format(budget.getAmount());
     }
 
     public String format(Transaction transaction) {
