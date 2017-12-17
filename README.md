@@ -1,4 +1,9 @@
-This is a personal fork with changes that I needed (see [Issues][8])
+This is a personal fork with changes that I needed (see [Issues][8]).
+
+Key changes include
+- Support for negative values in transactions (https://github.com/mvarnagiris/financius/issues/341)
+- Transaction Filters (https://github.com/mvarnagiris/financius/issues/20)
+- Budgets (https://github.com/mvarnagiris/financius/issues/18)
 
 # Financius
 Personal finance tracking tool for Android.
