@@ -76,6 +76,7 @@ public class CategoriesReportAdapter extends BaseAdapter {
                 LinearLayout.LayoutParams layoutParamsNegative = (LinearLayout.LayoutParams)holder.budgetPercentage100ModuloNegative_LL.getLayoutParams();
                 layoutParams.weight = (percentage == 1) ? 1 : (float)(percentage - (int)percentage);
                 layoutParamsNegative.weight = 1 - layoutParams.weight;
+                holder.budgetPercentage100ModuloContainer_LL.requestLayout();
             }
             else {
                 holder.budgetPercentage100ModuloContainer_LL.setVisibility(View.GONE);
@@ -159,6 +160,7 @@ public class CategoriesReportAdapter extends BaseAdapter {
                     LinearLayout.LayoutParams layoutParamsNegative = (LinearLayout.LayoutParams)holder.budgetPercentage100ModuloNegative_LL.getLayoutParams();
                     layoutParams.weight = (percentage == 1) ? 1 : (float)(percentage - (int)percentage);
                     layoutParamsNegative.weight = 1 - layoutParams.weight;
+                    holder.budgetPercentage100ModuloContainer_LL.requestLayout();
                 }
                 else {
                     holder.budgetPercentage100ModuloContainer_LL.setVisibility(View.GONE);
