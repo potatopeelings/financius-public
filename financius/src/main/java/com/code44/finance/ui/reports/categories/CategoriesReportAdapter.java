@@ -51,46 +51,14 @@ public class CategoriesReportAdapter extends BaseAdapter {
 
         final CategoriesReportData.CategoriesReportItem item = categoriesReportData.get(position);
 
-        holder.budgetContainer_LL.setVisibility(View.GONE);
-        holder.budgetPercentage100Container_LL.setVisibility(View.GONE);
-        holder.budgetPercentage100Multiplier_TV.setVisibility(View.INVISIBLE);
-        holder.budgetPercentage100Multiplier_TV.setText(null);
-        if (item.getBudgetAmount() != null) {
-            holder.budgetContainer_LL.setVisibility(View.VISIBLE);
-
-            String multiplier = null;
-            if (item.getBudgetAmount() != 0) {
-                double percentage = (double)item.getExpenseAmount() / (double)item.getBudgetAmount();
-                if (percentage > 1) {
-                    if ((int)percentage == 1) {
-                        // if not specified, a multiplier of 1 is implied
-                        multiplier = "";
-                    } else {
-                        multiplier = context.getString(R.string.multiply) + " " + Integer.toString((int) percentage);
-                    }
-                }
-                holder.budgetPercentage100ModuloContainer_LL.setVisibility(View.VISIBLE);
-                holder.budgetPercentage100Modulo_LL.setBackgroundColor(item.getCategory().getColor());
-                // set height based on modulo percentage
-                LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams)holder.budgetPercentage100Modulo_LL.getLayoutParams();
-                LinearLayout.LayoutParams layoutParamsNegative = (LinearLayout.LayoutParams)holder.budgetPercentage100ModuloNegative_LL.getLayoutParams();
-                layoutParams.weight = (percentage == 1) ? 1 : (float)(percentage - (int)percentage);
-                layoutParamsNegative.weight = 1 - layoutParams.weight;
-                holder.budgetPercentage100ModuloContainer_LL.requestLayout();
-            }
-            else {
-                holder.budgetPercentage100ModuloContainer_LL.setVisibility(View.GONE);
-                multiplier = context.getString(R.string.multiply) + " " + DecimalFormatSymbols.getInstance().getInfinity();
-            }
-
-            if (multiplier != null) {
-                holder.budgetPercentage100Container_LL.setVisibility(View.VISIBLE);
-                holder.budgetPercentage100_LL.setBackgroundColor(item.getCategory().getColor());
-                holder.budgetPercentage100Multiplier_TV.setVisibility(View.VISIBLE);
-                holder.budgetPercentage100Multiplier_TV.setText(multiplier);
-            }
-
-            holder.budget_TV.setText(amountFormatter.format(item.getBudgetAmount()));
+        Long budget = item.getBudgetAmount();
+        updateBudgetGraph(
+            item.getExpenseAmount(), budget,
+            item.getCategory().getColor(), holder.budgetContainer_LL,
+            holder.budgetPercentage100Container_LL, holder.budgetPercentage100_LL, holder.budgetPercentage100Multiplier_TV,
+            holder.budgetPercentage100ModuloContainer_LL, holder.budgetPercentage100Modulo_LL, holder.budgetPercentage100ModuloNegative_LL);
+        if (budget != null) {
+            holder.budget_TV.setText(amountFormatter.format(budget));
         }
 
         holder.color_IV.setColorFilter(item.getCategory().getColor());
@@ -131,52 +99,63 @@ public class CategoriesReportAdapter extends BaseAdapter {
             final TagViewHolder holder = (TagViewHolder) parent.getChildAt(i).getTag();
             final Pair<Tag, Long[]> tagAmount = tags.get(i - staticViewCount);
 
-            holder.budgetContainer_LL.setVisibility(View.GONE);
-            holder.budgetPercentage100Container_LL.setVisibility(View.GONE);
-            holder.budgetPercentage100Multiplier_TV.setVisibility(View.VISIBLE);
-            holder.budgetPercentage100Multiplier_TV.setText(null);
-            if (tagAmount.second[CategoriesReportData.BUDGET] != null) {
-                holder.budgetContainer_LL.setVisibility(View.VISIBLE);
-
-                String multiplier = null;
-                if (tagAmount.second[CategoriesReportData.BUDGET] != 0) {
-                    Long expense = tagAmount.second[CategoriesReportData.EXPENSE];
-                    if (expense == null) {
-                        expense = 0L;
-                    }
-                    double percentage = (double)expense / (double)tagAmount.second[CategoriesReportData.BUDGET];
-                    if (percentage > 1) {
-                        if ((int)percentage == 1) {
-                            // if not specified, a multiplier of 1 is implied
-                            multiplier = "";
-                        } else {
-                            multiplier = context.getString(R.string.multiply) + " " + Integer.toString((int) percentage);
-                        }
-                    }
-                    holder.budgetPercentage100ModuloContainer_LL.setVisibility(View.VISIBLE);
-                    holder.budgetPercentage100Modulo_LL.setBackgroundColor(color);
-                    // set height based on modulo percentage
-                    LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams)holder.budgetPercentage100Modulo_LL.getLayoutParams();
-                    LinearLayout.LayoutParams layoutParamsNegative = (LinearLayout.LayoutParams)holder.budgetPercentage100ModuloNegative_LL.getLayoutParams();
-                    layoutParams.weight = (percentage == 1) ? 1 : (float)(percentage - (int)percentage);
-                    layoutParamsNegative.weight = 1 - layoutParams.weight;
-                    holder.budgetPercentage100ModuloContainer_LL.requestLayout();
-                }
-                else {
-                    holder.budgetPercentage100ModuloContainer_LL.setVisibility(View.GONE);
-                    multiplier = context.getString(R.string.multiply) + " " + DecimalFormatSymbols.getInstance().getInfinity();
-                }
-
-                if (multiplier != null) {
-                    holder.budgetPercentage100Container_LL.setVisibility(View.VISIBLE);
-                    holder.budgetPercentage100_LL.setBackgroundColor(color);
-                    holder.budgetPercentage100Multiplier_TV.setVisibility(View.VISIBLE);
-                    holder.budgetPercentage100Multiplier_TV.setText(multiplier);
-                }
+            Long expense = tagAmount.second[CategoriesReportData.EXPENSE];
+            if (expense == null) {
+                expense = 0L;
             }
+            Long budget = tagAmount.second[CategoriesReportData.BUDGET];
+            updateBudgetGraph(expense, budget,
+                color, holder.budgetContainer_LL,
+                holder.budgetPercentage100Container_LL, holder.budgetPercentage100_LL, holder.budgetPercentage100Multiplier_TV,
+                holder.budgetPercentage100ModuloContainer_LL, holder.budgetPercentage100Modulo_LL, holder.budgetPercentage100ModuloNegative_LL);
 
             holder.title_TV.setText(tagAmount.first.getTitle());
             holder.amount_TV.setText(amountFormatter.format((tagAmount.second[CategoriesReportData.EXPENSE] == null) ? 0 : tagAmount.second[CategoriesReportData.EXPENSE]));
+        }
+    }
+
+    private void updateBudgetGraph(Long expense, Long budget,
+                                   int color, LinearLayout budgetContainer,
+                                   LinearLayout budgetPercentage100Container, LinearLayout budgetPercentage100, TextView budgetPercentage100Multiplier,
+                                   LinearLayout budgetPercentage100ModuloContainer, LinearLayout budgetPercentage100Modulo, LinearLayout budgetPercentage100ModuloNegative) {
+        budgetContainer.setVisibility(View.GONE);
+        budgetPercentage100Container.setVisibility(View.GONE);
+        budgetPercentage100Multiplier.setVisibility(View.INVISIBLE);
+        budgetPercentage100Multiplier.setText(null);
+        if (budget != null) {
+            budgetContainer.setVisibility(View.VISIBLE);
+
+            String multiplier = null;
+            if (budget != 0) {
+                double percentage = (double)expense / (double)budget;
+                if (percentage > 1) {
+                    if ((int)percentage == 1) {
+                        // if not specified, a multiplier of 1 is implied
+                        multiplier = "";
+                    } else {
+                        multiplier = context.getString(R.string.multiply) + " " + Integer.toString((int) percentage);
+                    }
+                }
+                budgetPercentage100ModuloContainer.setVisibility(View.VISIBLE);
+                budgetPercentage100Modulo.setBackgroundColor(color);
+                // set height based on modulo percentage
+                LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams)budgetPercentage100Modulo.getLayoutParams();
+                LinearLayout.LayoutParams layoutParamsNegative = (LinearLayout.LayoutParams)budgetPercentage100ModuloNegative.getLayoutParams();
+                layoutParams.weight = (percentage == 1) ? 1 : (float)(percentage - (int)percentage);
+                layoutParamsNegative.weight = 1 - layoutParams.weight;
+                budgetPercentage100ModuloContainer.requestLayout();
+            }
+            else {
+                budgetPercentage100ModuloContainer.setVisibility(View.GONE);
+                multiplier = context.getString(R.string.multiply) + " " + DecimalFormatSymbols.getInstance().getInfinity();
+            }
+
+            if (multiplier != null) {
+                budgetPercentage100Container.setVisibility(View.VISIBLE);
+                budgetPercentage100.setBackgroundColor(color);
+                budgetPercentage100Multiplier.setVisibility(View.VISIBLE);
+                budgetPercentage100Multiplier.setText(multiplier);
+            }
         }
     }
 
