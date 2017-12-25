@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.code44.finance.graphs.pie.PieChartView
+        android:id="@+id/pieChartView"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:sizeBasedOn="height"
+        android:layout_marginBottom="@dimen/keyline_half"
+        app:type="donut" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/space_large"
+        android:layout_marginRight="@dimen/space_large"
+        android:orientation="vertical">
+
+        <me.grantland.widget.AutofitTextView
+            android:id="@+id/totalBudgetTextView"
+            style="@style/Text.Display1"
+            android:textSize="16sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:singleLine="true"
+            tools:ignore="RtlHardcoded"
+            tools:text="Budget: 34.58 $" />
+
+        <me.grantland.widget.AutofitTextView
+            android:id="@+id/totalExpenseTextView"
+            style="@style/Text.Display2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:singleLine="true"
+            tools:ignore="RtlHardcoded"
+            tools:text="34.58 $" />
+
+    </LinearLayout>
+
+</merge>
