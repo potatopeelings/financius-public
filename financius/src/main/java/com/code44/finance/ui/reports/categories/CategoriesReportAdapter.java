@@ -22,10 +22,19 @@ public class CategoriesReportAdapter extends BaseAdapter {
     private final AmountFormatter amountFormatter;
     private CategoriesReportData categoriesReportData;
     private long totalExpenseAmount = 0;
+    private boolean showTagBudgets = false;
 
     public CategoriesReportAdapter(Context context, AmountFormatter amountFormatter) {
         this.context = context;
         this.amountFormatter = amountFormatter;
+    }
+
+    public boolean getShowTagBudgets() {
+        return showTagBudgets;
+    }
+
+    public void setShowTagBudgets(boolean showTagBudgets) {
+        this.showTagBudgets = showTagBudgets;
     }
 
     @Override public int getCount() {
@@ -104,10 +113,15 @@ public class CategoriesReportAdapter extends BaseAdapter {
                 expense = 0L;
             }
             Long budget = tagAmount.second[CategoriesReportData.BUDGET];
-            updateBudgetGraph(expense, budget,
-                color, holder.budgetContainer_LL,
-                holder.budgetPercentage100Container_LL, holder.budgetPercentage100_LL, holder.budgetPercentage100Multiplier_TV,
-                holder.budgetPercentage100ModuloContainer_LL, holder.budgetPercentage100Modulo_LL, holder.budgetPercentage100ModuloNegative_LL);
+            if (this.showTagBudgets) {
+                updateBudgetGraph(expense, budget,
+                        color, holder.budgetContainer_LL,
+                        holder.budgetPercentage100Container_LL, holder.budgetPercentage100_LL, holder.budgetPercentage100Multiplier_TV,
+                        holder.budgetPercentage100ModuloContainer_LL, holder.budgetPercentage100Modulo_LL, holder.budgetPercentage100ModuloNegative_LL);
+            }
+            else {
+                holder.budgetContainer_LL.setVisibility(View.GONE);
+            }
 
             holder.title_TV.setText(tagAmount.first.getTitle());
             holder.amount_TV.setText(amountFormatter.format((tagAmount.second[CategoriesReportData.EXPENSE] == null) ? 0 : tagAmount.second[CategoriesReportData.EXPENSE]));

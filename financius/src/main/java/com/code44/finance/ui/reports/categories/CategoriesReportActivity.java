@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ListView;
 
 import com.code44.finance.R;
@@ -90,6 +92,30 @@ public class CategoriesReportActivity extends BaseReportActivity implements Load
                         .asCursorLoader(this, BudgetsProvider.uriBudgets());
         }
         return null;
+    }
+
+    @Override public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.categories_report, menu);
+        return true;
+    }
+
+    @Override public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_show_tag_budgets:
+                if (adapter.getShowTagBudgets()) {
+                    adapter.setShowTagBudgets(false);
+                    item.setTitle(getBaseContext().getString(R.string.show_tag_budgets));
+                }
+                else {
+                    adapter.setShowTagBudgets(true);
+                    item.setTitle(getBaseContext().getString(R.string.hide_tag_budgets));
+                }
+                onTransactionsAndBudgetsLoaded(transactionsCursor, budgetsCursor);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override public void onLoadFinished(final Loader<Cursor> loader, final Cursor cursor) {

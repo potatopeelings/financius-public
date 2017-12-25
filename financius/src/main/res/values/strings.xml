@@ -123,6 +123,8 @@
     <string name="translate">Translate</string>
     <string name="filter">Filter</string>
     <string name="clear">Clear</string>
+    <string name="show_tag_budgets">Show Tag Budgets</string>
+    <string name="hide_tag_budgets">Hide Tag Budgets</string>
 
     <string name="f_change_to_x">Change to %s</string>
     <string name="f_current_main_currency_is_x">Current main currency is %s</string>
